@@ -8,17 +8,18 @@ class usersController extends ipage{
 	}
 	
 	public function login(){
-		if (isset($this->rq['email'])  && isset($this->rq['password']))
+		if (isset($this->r['email'],$this->r['password']))
 			return $this->users->login(
-				$this->rq['email'],
-				$this->rq['password']);	
+				$this->r['email'],
+				$this->r['password']);	
 	}
 	
 	public function register(){
-		if (isset($this->rq['email'])  && isset($this->rq['password']))
+		
+		if (isset($this->r['email'],$this->r['password']))
 			return $this->users->register(
-				$this->rq['email'],
-				$this->rq['password']);	
+				$this->r['email'],
+				$this->r['password']);	
 	}
 	
 	public function viewuserList(){

@@ -65,29 +65,36 @@ abstract class apage{
 	protected $runFor='page';
 	
 	
-	
+	public static $initial=null;
 	
 	
 	
 	public function __construct($autoRun=true){
-		$this->autoRun=$autoRun;
 		
+		$this->autoRun=$autoRun;
 		$this->__initialize();
-		if(isset($this->r['_ajax'])){
-			$this->runFor='ajax';
-			$this->generatedOutput=$this->invokeAjaxAction();
-		}
-		elseif(isset($this->r['_view'])){
-			$this->runFor='view';
-			$this->generatedOutput=$this->invokeView('view');
-		}
-		elseif(isset($this->r['_element'])){
-			$this->runFor='element';
-			$this->generatedOutput=$this->invokeView('element');
-		}
-		elseif($this->autoRun){
-			$this->runFor='page';
-			$this->run();
+		
+		if(apage::$initial==''){
+			
+			apage::$initial=get_class($this);
+			
+			if(isset($this->r['_ajax'])){
+				$this->runFor='ajax';
+				$this->generatedOutput=$this->invokeAjaxAction();
+			}
+			elseif(isset($this->r['_view'])){
+				$this->runFor='view';
+				$this->generatedOutput=$this->invokeView('view');
+			}
+			elseif(isset($this->r['_element'])){
+				$this->runFor='element';
+				$this->generatedOutput=$this->invokeView('element');
+			}
+			elseif($this->autoRun){
+				$this->runFor='page';
+				$this->run();
+			}
+		
 		}
 		
 	}
@@ -205,7 +212,7 @@ abstract class apage{
 	
 	
 	/**
-	 * detects ajax request and invoke the corresponded action(method)
+	 * detects ajax request and invokes the corresponded action(method)
 	 * */
 	final public function invokeAjaxAction(){
 
@@ -221,12 +228,14 @@ abstract class apage{
 		$action=explode('/',$this->r['_ajax'],2);
 		
 		if(count($action)==2){
+			$className=$action[0].'Controller';
 			main::loadController(self::stripView($action[0]));
-			$controller=new $action[0]();
+			
+			$controller=new $className();
 		}else
 			$controller=$this;
 		
-		if(method_exists($controller,$action))
+		if(method_exists($controller,$action[1]))
 			return call_user_func(array($controller,$action[1]));
 
 		else
