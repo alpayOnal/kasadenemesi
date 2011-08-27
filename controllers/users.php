@@ -21,6 +21,16 @@ class usersController extends ipage{
 				$this->rq['password']);	
 	}
 	
+	public function viewloginForm(){
+			$this->login();
+			return $this->loadView('loginForm.php',null,false);
+	}
+	
+	public function viewregisterForm(){
+			$this->register();
+			return $this->loadView('registerForm.php',null,false);
+	}
+	
 	public function viewuserList(){
 		
 		return $this->loadView(
