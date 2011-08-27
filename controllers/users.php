@@ -9,7 +9,7 @@ class users extends apage{
 	public function login(){
 		if (isset($this->rq['email'])  && isset($this->rq['password']))
 			return $this->users->login(
-				$this->rq'email'],
+				$this->rq['email'],
 				$this->rq['password']);	
 	}
 	
@@ -21,7 +21,7 @@ class users extends apage{
 	}
 
 	public function viewUserList(){
-		return $this->loadWiew('userList',$this-users->getUsers());
+		return $this->loadWiew('userList',$this->users->getUsers());
 	}
 }
 ?>
