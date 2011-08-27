@@ -8,28 +8,46 @@ class usersController extends ipage{
 	}
 	
 	public function login(){
-		if (isset($this->r['email'],$this->r['password']))
-			return $this->users->login(
+		if (isset($this->r['email'],$this->r['password']) &&
+			$this->r['formName']=='login'){
+			$u=$this->users->login(
 				$this->r['email'],
-				$this->r['password']);	
+				$this->r['password']);
+			if ($u) 
+				return $this->createSession($u);
+			else 	
+				return false;
+		}	
+	}
+	
+	public function createSession($u){
+		$s=new sSession();
+		$s->create($u);
+		$this->isLogined=true;
+		$this->u=$u;
 	}
 	
 	public function register(){
 		
-		if (isset($this->r['email'],$this->r['password']))
+		if (isset($this->r['email'],$this->r['password']) && 
+			$this->r['formName']=='register')
 			return $this->users->register(
 				$this->r['email'],
 				$this->r['password']);	
 	}
 	
 	public function viewloginForm(){
-			$this->login();
-			return $this->loadView('loginForm.php',null,false);
+			$l=$this->login();
+			if (!$this->isLogined)
+				return $this->loadView(
+					'loginForm.php',null,false
+				);
 	}
 	
 	public function viewregisterForm(){
-			$this->register();
-			return $this->loadView('registerForm.php',null,false);
+			$x=new stdClass();
+			$x->isRegistered=$this->register();
+			return $this->loadView('registerForm.php',$x,false);
 	}
 	
 	public function viewuserList(){

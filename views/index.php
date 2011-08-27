@@ -15,7 +15,7 @@ $users=new usersController();
 	</div>
 	<div style="float:left;margin-top:25px;width:100%;">
 		<div style="float:left;">
-			<?php $this->loadView('loginForm.php');?>
+			<?php echo $this->loadView('loginForm.php');?>
 		</div>
 		<div style="float:left;margin-left:25px;">
 			<?php echo $this->loadView('registerForm.php');?>
