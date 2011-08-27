@@ -36,9 +36,13 @@ class productsController extends ipage{
 		
 	}
 	
-	public function getProductsOfBasket(){
-		return $this->loadView('basket.php',
-			$this->products->getProductsOfBasket($this->u->id),false);
+	public function viewbasket(){
+		
+		return $this->loadView(
+			'basket.php',
+			$this->products->getProductsOfBasket($this->u->id),
+			false
+		);
 	}	
 }	
 ?>

@@ -32,10 +32,13 @@ class products
 	public function getProductsOfBasket($userId){
 		$userId=$this->db->escape($userId);
 		
-		$sql='select *,1 as inBasket from baskets 
+		$sql='select products.*,1 as inBasket 
+			from 
+			baskets left join products 
+				on products.id=baskets.productId
 			where 
 			userId=\''.$userId.'\'';
-
+		
 		return $this->db->fetch($sql);
 	}
 
