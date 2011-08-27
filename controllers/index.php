@@ -1,3 +1,3 @@
-class  index extends apage {
-
-}
+<?php
+class  index extends apage {}
+?>

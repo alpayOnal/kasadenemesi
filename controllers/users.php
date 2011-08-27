@@ -9,15 +9,15 @@ class users extends apage{
 	public function login(){
 		if (isset($this->rq['email'])  && isset($this->rq['password']))
 			return $this->users->login(
-				$this->['email'],
-				$this->['password']);	
+				$this->rq'email'],
+				$this->rq['password']);	
 	}
 	
 	public function register(){
 		if (isset($this->rq['email'])  && isset($this->rq['password']))
 			return $this->users->register(
-				$this->['email'],
-				$this->['password']);	
+				$this->rq['email'],
+				$this->rq['password']);	
 	}
 
 	public function viewUserList(){
