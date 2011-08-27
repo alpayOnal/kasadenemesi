@@ -13,7 +13,9 @@ class users
 	 * register the user by given data
 	 * */
 	public function register($email,$password){
-		$this->isRegistered($email);
+		
+		if(($error=$this->isRegistered($email))!==true)
+			return $error;
 		
 		$email=$this->db->escape($email);
 		$password=$this->db->escape($password);
@@ -76,7 +78,7 @@ class users
 		
 		$r=$this->db->fetch($sql);
 		
-		return ( $r===false ? false : true );
+		return ( $r!=false ? false : true );
 	}
 
 	/**
