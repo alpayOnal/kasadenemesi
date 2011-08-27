@@ -1,4 +1,5 @@
 <?php
+moduler::simportLib('apage');
 abstract class controllers extends apage
 {
 	public function run(){
