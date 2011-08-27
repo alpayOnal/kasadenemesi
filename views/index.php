@@ -1,3 +1,8 @@
+<?php
+main::loadController('users');
+$users=new usersController();
+?>
+
 <div>
 	<h3>Anasayfa</h3>
 	<div style="float:left;width:100%;">
@@ -13,8 +18,8 @@
 			<?php $this->loadView('loginForm.php');?>
 		</div>
 		<div style="float:left;margin-left:25px;">
-			<?php $this->loadView('registerForm.php');?>
-			<?php $this->loadView('users/userList.php');?>
+			<?php echo $this->loadView('registerForm.php');?>
+			<?php echo $users->loadView('userList.php');?>
 		</div>
 	</div>
 </div>

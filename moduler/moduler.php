@@ -43,7 +43,7 @@ class moduler
 	public function importFiles($m,$type='model'){
 		if($type=='model')
 			$sdir=$this->_modelDir;
-		elseif($type=='lib')
+		elseif($type=='libraries')
 			$sdir=$this->_libDir;
 
 		$path=realpath(dirname(__FILE__)).'/'.$sdir.'/';
@@ -53,7 +53,7 @@ class moduler
 		}
 		
 		foreach($m as $f){
-			echo $path.$f.'<br>';
+			
 			if(file_exists($path.$f)){
 				if(is_dir($path.$f)) 
 					require_once($path.$f.'/'.$f.'.php');
@@ -91,10 +91,10 @@ class moduler
 	 * Dosya adında, dosyanın içinde bulunduğu dizin adı da olabilir.
 	 * @return işlem başarılıysa true, başarısızsa false döndürür.
 	 */
-	public function importLib($m){return $this->importFiles($m,'lib');}
+	public function importLib($m){return $this->importFiles($m,'libraries');}
 	public static function simportLib($m){	//static kopyası
 		$o=new moduler();
-		return $o->importFiles($m,'lib');
+		return $o->importFiles($m,'libraries');
 	}
 }
 ?>

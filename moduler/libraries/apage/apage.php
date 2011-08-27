@@ -307,11 +307,17 @@ abstract class apage{
 	 * @param mixed $params gönderilecek parametre nesnesi
 	 * @return string görüntünün(genellikle html) çıktısı
 	 * */
-	public function loadView($view,$params){
-		return $this->loadViewFile(
-			$this->viewsPath.self::stripView($view),
-			$params
-		);
+	public function loadView($view,$params=null,$callMethod=true){
+		
+		$viewName=explode('.',$view,2);
+		$methodName='view'.$viewName[0];
+		if($callMethod && method_exists($this,$methodName))
+			return $this->$methodName($params);
+		else
+			return $this->loadViewFile(
+				$this->viewsPath.self::stripView($view),
+				$params
+			);
 	}
 	
 	/**
@@ -321,7 +327,7 @@ abstract class apage{
 	 * @param mixed $params elemente aktarılacak parametre(ler)
 	 * @return string elementin(genellikle html) çıktısı
 	 * */
-	public function loadElement($element,$params){
+	public function loadElement($element,$params=null){
 		return $this->loadViewFile(
 			$this->elementsPath.self::stripView($element),
 			$params

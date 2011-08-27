@@ -2,6 +2,13 @@
 
 class users
 {
+	
+	public function __construct(){
+		moduler::simportLib('db');
+		$this->db=new db();
+	}
+	
+	
 	/**
 	 * register the user by given data
 	 * */
@@ -69,7 +76,7 @@ class users
 		
 		$r=$this->db->fetch($sql);
 		
-		return ( $r===false ? false : true )
+		return ( $r===false ? false : true );
 	}
 
 	/**

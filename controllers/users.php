@@ -2,7 +2,7 @@
 require_once('ipage.php');
 class usersController extends ipage{
 	
-	public function initiailize(){
+	public function initialize(){
 		$this->addModel('users');
 		$this->users=new users();
 	}
@@ -20,9 +20,15 @@ class usersController extends ipage{
 				$this->rq['email'],
 				$this->rq['password']);	
 	}
-
-	public function viewUserList(){
-		return $this->loadWiew('userList',$this->users->getUsers());
+	
+	public function viewuserList(){
+		
+		return $this->loadView(
+			'userList.php',
+			$this->users->getUsers(),
+			false
+		);
+		
 	}
 }
 ?>
