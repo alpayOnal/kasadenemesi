@@ -3,24 +3,36 @@ require_once('ipage.php');
 class productsController extends ipage{
 	
 	public function initialize(){
+		parent::initialize();
 		$this->addModel('products');
 		$this->products=new products();
-		print_r($u);
 	}
 	
+	public function run(){
+		$this->addToBasket();
+		parent::run();
+	}
 
 	public function addToBasket(){
 		if (isset($this->r['productId']) && 
-			$this->r['formName']=='addToBasket'))
+			$this->r['formName']=='addToBasket')
 			return $this->products->addToBasket(
-				$this->u->'id',
-				$this-r['productId']
+				$this->r['productId'],
+				$this->u->id
 			);
 	}
 	
-	public function getProducts(){
-		return $this->loadView('products.php',
-			$this->products->getProducts(),false);
+	public function viewproducts(){
+		
+		$p=$this->products->getProducts(
+			($this->isLogined?$this->u->id:null)
+		);
+
+		return $this->loadView(
+			'products.php',
+			$p,
+			false
+		);
 		
 	}
 	

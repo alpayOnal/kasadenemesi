@@ -9,8 +9,19 @@ class products
 	 * returns all products
 	 * @return array
 	 * */
-	public function getProducts(){
-		return $this->db->fetch('select * from products');
+	public function getProducts($userId=null){
+
+		$userId=$this->db->escape($userId);
+
+		if($userId==null)
+			$sql='select *,0 as inBasket from products';
+		else
+			$sql='select products.*, userId as inBasket from 
+				products left join baskets 
+					on products.id=baskets.productId
+					and baskets.userId=\''.$userId.'\' ';
+		
+		return $this->db->fetch($sql);
 	}
 
 	/**
@@ -21,7 +32,7 @@ class products
 	public function getProductsOfBasket($userId){
 		$userId=$this->db->escape($userId);
 		
-		$sql='select * from baskets 
+		$sql='select *,1 as inBasket from baskets 
 			where 
 			userId=\''.$userId.'\'';
 
@@ -34,10 +45,14 @@ class products
 	 * @param int $userId
 	 * @return bool
 	 * */
-	public function addBasket($productId,$userId){
-		$productId=$this->escape($productId);
-		$userId=$this->escape($userId);
+	public function addToBasket($productId,$userId){
 		
+		if($this->isInBasket($productId,$userId))
+			return 'the product is already in the user\'s basket.';
+
+		$productId=$this->db->escape($productId);
+		$userId=$this->db->escape($userId);
+
 		$sql='insert into baskets
 			(userId,productId)
 			values
@@ -77,6 +92,21 @@ class products
 			return true;
 
 		return false;
+	}
+
+	public function isInBasket($productId,$userId){
+		$userId=$this->db->escape($userId);
+		$productId=$this->db->escape($productId);
+	
+		$sql='select * from baskets
+			where
+			userId=\''.$userId.'\' and
+			productId=\''.$productId.'\'
+			limit 1';
+
+		$this->db->query($sql);
+		return $this->db->numRows>0;
+
 	}
 }
 

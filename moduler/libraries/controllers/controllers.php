@@ -11,7 +11,7 @@ abstract class controllers extends apage
 		$layout=preg_replace(
 			'/Controller$/','',get_class($this)
 		);
-		echo $this->layoutsPath.$layout.'.php';
+
 		if(file_exists($this->layoutsPath.$layout.'.php'))
 			return $this->loadView($layout.'.php',null);
 
