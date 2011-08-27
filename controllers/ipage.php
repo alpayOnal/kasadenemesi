@@ -10,9 +10,14 @@ class ipage extends controllers
 			$this->isLogined=false;
 	}
 	
+	public function initialize(){
+		$this->addLib('db');
+	}
+	
 	public function run(){
 		$this->isSession();
 		parent::run();
 	}
+	
 }
 ?>

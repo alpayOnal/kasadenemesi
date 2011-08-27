@@ -1,3 +1,5 @@
 rewriteengine On
 RewriteRule ^index /main.php?_controller=index?&%{QUERY_STRING}
 RewriteRule ^users /main.php?_controller=users?&%{QUERY_STRING}
+RewriteRule ^products /main.php?_controller=products?&%{QUERY_STRING}
+RewriteRule ^baskets /main.php?_controller=products?&%{QUERY_STRING}
