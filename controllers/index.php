@@ -1,3 +1,4 @@
 <?php
-class  index extends apage {}
+require_once('ipage.php');
+class  indexController extends ipage {}
 ?>

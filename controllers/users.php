@@ -1,5 +1,6 @@
 <?php
-class users extends apage{
+require_once('ipage.php');
+class usersController extends ipage{
 	
 	public function initiailize(){
 		$this->addModel('users');
