@@ -1,9 +1,5 @@
 <?php
-class users{
-	
-	public function __construct(){
-		$this->initialize();
-	}
+class users extends apage{
 	
 	public function initiailize(){
 		$this->addModel('users');
